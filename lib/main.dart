@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:tmdb_movies/model/cards.dart';
 import 'package:tmdb_movies/model/movies.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,10 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
           future: futureMoviesList,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data!.toString());
+              return MovieCards(list: snapshot.data!);
             } else if (snapshot.hasError) {
               return Text('Ocorreu o seguinte erro: ${snapshot.error}');
             }
+            const Text('Carregando dados');
             return const CircularProgressIndicator();
           },
         ),
