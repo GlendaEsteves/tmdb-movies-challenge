@@ -24,4 +24,13 @@ class MovieDetailsModel {
       overview: json['overview'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'vote_average': rating,
+        'poster_url': poster,
+        'genres': genres,
+        'release_date': releaseDate,
+        'overview': overview
+      };
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_movies/model/movie_details.dart';
 
@@ -13,12 +14,10 @@ class DetailsBuilder extends StatelessWidget {
         SizedBox(
           height: 100,
           width: 100,
-          child: Image.network(
-            details.poster,
-            errorBuilder: (BuildContext context, Object exception,
-                StackTrace? stackTrace) {
-              return const Icon(Icons.error);
-            },
+          child: CachedNetworkImage(
+            imageUrl: details.poster,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
         Text(details.title),

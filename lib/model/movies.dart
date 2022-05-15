@@ -25,8 +25,12 @@ class Movies {
     );
   }
 
-  @override
-  String toString() {
-    return 'id: $id, rating: $rating, title: $title, poster: $poster, genres: $genres, release date: $releaseDate';
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'vote_average': rating,
+        'title': title,
+        'poster_url': poster,
+        'genres': genres,
+        'release_date': releaseDate
+      };
 }
