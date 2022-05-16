@@ -19,7 +19,8 @@ Alguns tratamentos de erros e dados locais ainda precisam ser implementados.
 <p><strong>Para dar deploy no aplicativo: </strong></p>
 
 - Instalar o Flutter, seguindo as instruções da documentação de acordo com seu sistema operacional: [Instruções](https://docs.flutter.dev/get-started/install);
-- Utilizar uma IDE de sua preferência (Ex: VS Code, AndroidStudio, etc...);
+- Fazer o download do .zip do código e descompactar;
+- Abrir a pasta com uma IDE de sua preferência (Ex: VS Code, AndroidStudio, etc...);
 - Utilizar um emulador ou o próprio celular para testes. Caso utilize o celular, ativar o modo de desenvolvedor e depuração usb;
 
 ---
