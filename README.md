@@ -26,7 +26,7 @@ Alguns tratamentos de erros e dados locais ainda precisam ser implementados.
 
 <p><strong>Algumas imagens</p>
 
-![Lista de Filmes 1](/assets/images/ListOne.png)
-![Lista de Filmes 2](/assets/images/ListTwo.png)
-![Detalhes 1](/assets/images/DetailsOne.png)
-![Detalhes 2](/assets/images/DetailsTwo.png)
+![Lista de Filmes 1](/assets/images/ListOne.jpg)
+![Lista de Filmes 2](/assets/images/ListTwo.jpg)
+![Detalhes 1](/assets/images/DetailsOne.jpg)
+![Detalhes 2](/assets/images/DetailsTwo.jpg)
