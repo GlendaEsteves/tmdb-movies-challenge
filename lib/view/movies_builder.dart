@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb_movies/controller/shared_preferences.dart';
 
-import '../model/cards.dart';
+import 'cards.dart';
 import '../model/movies.dart';
 
+/*
+  Classe que constrói a lista de filmes através de um FutureBuilder, em caso
+  do dispositivo estar online
+*/
 class MoviesBuilder extends StatefulWidget {
   const MoviesBuilder({required this.futureMoviesList, Key? key})
       : super(key: key);

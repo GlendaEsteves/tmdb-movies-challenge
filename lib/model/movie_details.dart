@@ -1,4 +1,9 @@
+/*
+  Classe Modelo dos detalhes dos filmes
+*/
+
 class MovieDetailsModel {
+  final int id;
   final String title;
   final double rating;
   final String poster;
@@ -7,7 +12,8 @@ class MovieDetailsModel {
   final String overview;
 
   MovieDetailsModel(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.rating,
       required this.poster,
       required this.genres,
@@ -16,6 +22,7 @@ class MovieDetailsModel {
 
   factory MovieDetailsModel.fromJson(Map<String, dynamic> json) {
     return MovieDetailsModel(
+      id: json['id'],
       title: json['title'],
       rating: json['vote_average'],
       poster: json['poster_url'],
@@ -26,6 +33,7 @@ class MovieDetailsModel {
   }
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'title': title,
         'vote_average': rating,
         'poster_url': poster,

@@ -6,6 +6,7 @@ import 'package:tmdb_movies/model/movies.dart';
 import 'package:http/http.dart' as http;
 import 'package:tmdb_movies/view/movies_builder.dart';
 
+//Tela Principal do aplicativo
 void main() {
   runApp(const TmdbMoviesApp());
 }
@@ -38,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late Future<List<Movies>> futureMoviesList;
   late Future<bool> isConnected;
-  late Movies movieRead;
   late Future<List<Movies>> futureOfflineMoviesList;
 
   @override
@@ -49,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     futureOfflineMoviesList = loadOfflineData();
   }
 
+  //Função que recupera os dados salvos em cache
   Future<List<Movies>> loadOfflineData() async {
     List<Movies> offlineMoviesList = [];
     List offlineMovies = await sharedPrefs.read('offlineMovies');
@@ -58,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return offlineMoviesList;
   }
 
+  //FutureBuilder para o caso de haver conexão ou não
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+/*
+  Função que recupera a lista de filmes que o json fornece e transforma numa 
+  lista de objetos
+*/
 Future<List<Movies>> fetchMoviesList() async {
   try {
     List<Movies> moviesList = [];
@@ -106,6 +112,7 @@ Future<List<Movies>> fetchMoviesList() async {
   }
 }
 
+//Função que verifica a conexão de internet
 Future<bool> checkInternetConnection() async {
   try {
     final response = await InternetAddress.lookup('www.google.com');

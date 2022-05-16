@@ -1,3 +1,7 @@
+/*
+  Classe Modelo dos filmes
+*/
+
 class Movies {
   final int id;
   final double rating;

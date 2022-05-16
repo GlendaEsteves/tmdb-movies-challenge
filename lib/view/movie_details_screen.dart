@@ -7,6 +7,10 @@ import 'package:tmdb_movies/view/details_builder.dart';
 import 'package:tmdb_movies/view/offline_details_builder.dart';
 import '../controller/shared_preferences.dart';
 
+/*
+  Tela dos detalhes dos filmes, que recupera um json com tais informações
+  através da id fornecida pela tela principal, pelo método GET
+*/
 class MovieDetails extends StatefulWidget {
   const MovieDetails({required this.id, Key? key}) : super(key: key);
 
@@ -18,27 +22,43 @@ class MovieDetails extends StatefulWidget {
 
 class _MovieDetailsState extends State<MovieDetails> {
   late Future<MovieDetailsModel> futureMovieDetails;
-  late Future<MovieDetailsModel> futureOfflineDetails;
+  late Future<List<MovieDetailsModel>> futureOfflineDetails;
   SharedPrefs sharedPrefs = SharedPrefs();
 
   @override
   void initState() {
     super.initState();
+    //Futures para o FutureBuilder
     futureMovieDetails = fetchMovieDetails();
     futureOfflineDetails = loadOfflineData();
   }
 
-  Future<MovieDetailsModel> loadOfflineData() async {
+  /*
+    Função que carrega os dados offline, caso eles existam, e gera uma lista da
+    classe de MovieDetailsModel. Ainda não está corretamente implementada.
+  */
+  Future<List<MovieDetailsModel>> loadOfflineData() async {
     bool save = await sharedPrefs.exists('offlineMoviesDetails');
+    MovieDetailsModel auxOfflineMovie;
+    List<MovieDetailsModel> listOfflineMovies = [];
     if (save == true) {
-      var offlineDetails = MovieDetailsModel.fromJson(
+      auxOfflineMovie = MovieDetailsModel.fromJson(
           await sharedPrefs.read('offlineMoviesDetails'));
-      return offlineDetails;
+      listOfflineMovies.add(auxOfflineMovie);
+      if (auxOfflineMovie !=
+          MovieDetailsModel.fromJson(
+              await sharedPrefs.read('offlineMoviesDetails'))) {
+        var aux2OfflineMovies = MovieDetailsModel.fromJson(
+            await sharedPrefs.read('offlineMoviesDetails'));
+        listOfflineMovies.add(aux2OfflineMovies);
+      }
+      return listOfflineMovies;
     } else {
       throw Exception('Não há dados salvos');
     }
   }
 
+  //Construção do FutureBuilder para os casos de estar online ou offline
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,15 +68,17 @@ class _MovieDetailsState extends State<MovieDetails> {
           future: futureMovieDetails,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              //Salva os dados no cache caso os dados existam
               sharedPrefs.save('offlineMoviesDetails', snapshot.data!);
               return DetailsBuilder(details: snapshot.data!);
             } else if (!snapshot.hasData) {
               return OfflineDetailsBuilder(
-                  offlineDetails: futureOfflineDetails);
+                offlineDetails: futureOfflineDetails,
+                id: widget.id,
+              );
             } else if (snapshot.hasError) {
               return Text('Ocorreu o seguinte erro: ${snapshot.error}');
             }
-            const Text('Carregando dados');
             return const CircularProgressIndicator();
           },
         ),
@@ -64,6 +86,7 @@ class _MovieDetailsState extends State<MovieDetails> {
     );
   }
 
+  //Função que recupera os dados dos detalhes dos filmes através de um método GET
   Future<MovieDetailsModel> fetchMovieDetails() async {
     try {
       final url =
